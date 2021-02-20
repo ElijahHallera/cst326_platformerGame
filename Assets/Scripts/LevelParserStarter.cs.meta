@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9e6568559d6661b4eba05e67f1401a83
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Rock: {fileID: 2282481367230175229, guid: 64d06c990dba70e419d446afea9d1987, type: 3}
+  - Brick: {fileID: 2653344700233508913, guid: f611d94fec82aa047a1dc26f3e6864cc, type: 3}
+  - QuestionBox: {fileID: 8172734801148001886, guid: e1acfbbdbcb168146bd37e2ccfc7845a, type: 3}
+  - Stone: {fileID: 8873839948313372911, guid: 536baeb8eac69ec49af196a45261ae0b, type: 3}
+  - parentTransform: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
