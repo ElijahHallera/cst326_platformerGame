@@ -18,7 +18,7 @@ public class LevelParserStarter : MonoBehaviour
 
     public Transform parentTransform;
 
-    public float timer = 20;
+    public float timer = 400;
     public float coins = 0;
     [SerializeField] private Text TimeCounter;
     [SerializeField] private Text CoinCounter;
