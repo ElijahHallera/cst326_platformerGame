@@ -8,6 +8,8 @@ public class LevelParserStarter : MonoBehaviour
 {
     public string filename;
 
+    private Animator animator;
+
     public GameObject Rock;
 
     public GameObject Brick;
@@ -16,18 +18,31 @@ public class LevelParserStarter : MonoBehaviour
 
     public GameObject Stone;
 
+    public GameObject Lava;
+
+    public GameObject Goal;
+
     public Transform parentTransform;
 
-    public float timer = 20;
+    public float timer = 100;
     public float coins = 0;
+    public float score = 0;
+    public float endGameCounter = 0;
     [SerializeField] private Text TimeCounter;
     [SerializeField] private Text CoinCounter;
+    [SerializeField] private Text ScoreCounter;
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         TimeCounter.GetComponent<Text>().text = timer.ToString();
         CoinCounter.GetComponent<Text>().text = coins.ToString();
+        ScoreCounter.GetComponent<Text>().text = score.ToString();
         RefreshParse();
     }
 
@@ -49,10 +64,14 @@ public class LevelParserStarter : MonoBehaviour
                 if(hit.collider.gameObject.name == "Brick(Clone)")
                 {
                     Destroy(hit.collider.gameObject);
+                    score += 100;
+                    ScoreCounter.text = (score).ToString("0");
                 }
                 if (hit.collider.gameObject.name == "QuestionBox(Clone)")
                 {
+                    score += 100;
                     coins++;
+                    ScoreCounter.text = (score).ToString("0");
                     CoinCounter.text = (coins).ToString("0");
                 }
             }
@@ -60,16 +79,36 @@ public class LevelParserStarter : MonoBehaviour
 
         if (timer < 0)
         {
-            Debug.Log("GAME OVER");
-            Time.timeScale = 0;
-            QuitGame();
+            endGameCounter++;
+
+            if(endGameCounter == 1){
+                QuitGame();
+            }
         }
     }
 
-    //Apparently you cant call Application.Quit() in update?
+    public void increaseScore()
+    {
+        score += 100;
+        ScoreCounter.text = (score).ToString("0");
+    }
+
+    public void increaseCoins()
+    {
+        coins++;
+        CoinCounter.text = (coins).ToString("0");
+    }
+
     public void QuitGame()
     {
-        Application.Quit();
+        Debug.Log("GAME OVER YOU FAILED");
+        Time.timeScale = 0;
+    }
+
+    public void WinGame()
+    {
+        Time.timeScale = 0;
+        Debug.Log("Congratulations YOU won!");
     }
 
     private void FileParser()
@@ -110,8 +149,10 @@ public class LevelParserStarter : MonoBehaviour
             case 'x': ToSpawn = Rock; break;
                 //Debug.Log("Spawn Rock");
             case 's': ToSpawn = Stone; break;
-                //Debug.Log("Spawn Rock");
-
+                //Debug.Log(""Spawn Rock");
+            case 'g': ToSpawn = Goal; break;
+                //Debug.Log("Spawn Goal");
+            case 'l': ToSpawn = Lava; break;
             //default: Debug.Log("Default Entered"); break;
             default: return;
                 //ToSpawn = //Brick;       break;
